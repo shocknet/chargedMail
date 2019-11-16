@@ -1,3 +1,5 @@
+![chargedMail Logo](https://github.com/shocknet/chargedMail/logo.png)
+
 # ChargedMail
 ### Requirements:
 - Google Cloud Project 

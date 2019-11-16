@@ -6,14 +6,14 @@
 - Set LND host in lnd.js line 15
 - Node 12
 
-### Required extra files
-private/creds.json: file with the API key for GMAIL
-private/credsPubSub.json: file with the API key for GC PubSub
-private/projectInfo.json: info in GCP project must contain:"ProjectId","topicName","pullSubName"
+### Required  Files
+- `private/creds.json`: Authentication File for GMail API
+- `private/credsPubSub.json`: Authentication File for GC PubSub
+- `private/projectInfo.json`: PubSub Namings
 
-private/tls.cert:tls certificate for lnd
-private/admin.macaroon: macaroon file for lnd
-private/rpc.proto: proto file for the Lnd grpc
+- `private/tls.cert`: LND Cert
+- `private/admin.macaroon`: Authentication file for LND
+- `private/rpc.proto`:  LNRPC
 
 #### Ensure that these files are put into /private prior to starting. The private folder will be where the user token and internal database will be stored. 
 

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    helo
+    <main class="d-none" id="main">
+        <h2 id="mainContent"></h2>
+        <button id="stop" class="d-none">STOP service</button>
+        <div id="start" class="d-none">
+            <textarea name="message" id="message" cols="30" rows="10" placeholder="message to send via email"></textarea>
+            <label for="cost">Amount satoshis</label>
+            <input type="number" id="cost" >
+            <button id="startBtn">START service</button>
+        </div>
+    </main>
+    <section id="init" class="d-none">
+        <p>Get the token and put in the texbox</p>
+        <a href="#" target="_blank" id="toGoogle">Get token</a>
+        <br/>
+        <br/>
+        <input type="text" placeholder="identification code" id="idCode"/>
+        <button id="sendCodeBtn">send code</button>
+    </section>
+    <script>
+        fetch('http://localhost:8254/check')
+        .then(response=>{
+            response.json()
+            .then(res=>{
+                console.log(res)
+                if(res.result == "error"){
+                    fetch('http://localhost:8254/init')
+                    .then(response=>{
+                        response.json()
+                        .then(res=>{
+                            console.log(res)
+                            if(res.url){
+                                document.querySelector('#init').classList.toggle("d-none")
+                                document.querySelector('#toGoogle').setAttribute("href",res.url)
+                                document.querySelector('#sendCodeBtn').addEventListener("click",(e)=>{
+                                    var data = {}
+                                    //console.log(document.querySelector("#idCode").value)
+                                    data.code = document.querySelector("#idCode").value
+                                    var params= {
+                                        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                                        mode: 'cors', // no-cors, *cors, same-origin
+                                        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                                        credentials: 'same-origin', // include, *same-origin, omit
+                                        headers: {
+                                        'Content-Type': 'text/html'
+                                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                                        },
+                                        redirect: 'follow', // manual, *follow, error
+                                        referrer: 'no-referrer', // no-referrer, *client
+                                        body: JSON.stringify(data) // body data type must match "Content-Type" header
+                                    }
+                                    fetch("http://localhost:8254/init",params)
+                                    .then(response=>{
+                                        response.json()
+                                        .then(res=>{
+                                            console.log(res)
+                                            if(res.result = "success"){
+                                                fetch('http://localhost:8254/status')
+                                                .then(response=>{
+                                                    response.json()
+                                                    .then(res=>{
+                                                        console.log(res)
+                                                        manager(res)
+                                                    })
+                                                })
+                                            }
+                                        })
+                                    })
+                                })
+
+                            }
+                        })
+                    })
+                } else {
+                    fetch('http://localhost:8254/status')
+                    .then(response=>{
+                        response.json()
+                        .then(res=>{
+                            console.log(res)
+                            manager(res)
+                        })
+                    })
+                }
+            })
+        })
+    
+        function manager(res){
+            document.querySelector('#main').classList.toggle("d-none")
+            document.querySelector('#mainContent').innerHTML = "Status:"+res.status.status
+            if(res.status.status == "running"){
+                document.querySelector('#stop').addEventListener("click",e=>{
+                    fetch('http://localhost:8254/stop')
+                    .then(response=>{
+                        response.json()
+                        .then(res=>{
+                            console.log(res)
+                        })
+                    })
+                })
+                document.querySelector('#stop').classList.toggle("d-none")
+            }
+            if(res.status.status == "NOT running"){
+                document.querySelector('#startBtn').addEventListener("click",e=>{
+                    var mex = document.querySelector('#message').value
+                    var cost = document.querySelector('#cost').value
+                    var data = {
+                        cost:cost,
+                        message:mex
+                    }
+                    var params= {
+                        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                        mode: 'cors', // no-cors, *cors, same-origin
+                        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                        credentials: 'same-origin', // include, *same-origin, omit
+                        headers: {
+                        'Content-Type': 'text/html'
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        redirect: 'follow', // manual, *follow, error
+                        referrer: 'no-referrer', // no-referrer, *client
+                        body: JSON.stringify(data) // body data type must match "Content-Type" header
+                    }
+                    fetch('http://localhost:8254/start',params)
+                    .then(response=>{
+                        response.json()
+                        .then(res=>{
+                            console.log(res)
+                        })
+                    })
+                })
+                document.querySelector('#start').classList.toggle("d-none")
+            }
+        }
+    </script>
+</body>
+</html>

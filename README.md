@@ -1,4 +1,4 @@
-![chargedMail Logo](https://github.com/shocknet/chargedMail/chargedMail.png)
+![chargedMail Logo](https://raw.githubusercontent.com/shocknet/chargedMail/master/chargedMail.png)
 
 # ChargedMail
 ### Requirements:

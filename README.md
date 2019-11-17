@@ -24,3 +24,10 @@ For emails you wish to receive the paywall challenge, create a filter to add the
 
 ### Run
 `npm start`, then connect to the web panel at http://localhost:8254/ to define your outgoing message, cost, and initialize the service.
+
+
+#### Tips :)
+
+3K3tKywVy2m29teR52XAMEjZ6Rs3ZLdTxc
+
+![Tips Welcome](https://github.com/shocknet/chargedMail/blob/master/tips.png)

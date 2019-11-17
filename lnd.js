@@ -1,4 +1,4 @@
-module.exports.init=function(){
+module.exports.init=function(lndAddress){
     var fs = require('fs');
     var grpc = require('grpc');
     var lnrpc = grpc.load('private/rpc.proto').lnrpc;
@@ -12,7 +12,7 @@ module.exports.init=function(){
         callback(null, metadata);
     });
     var creds = grpc.credentials.combineChannelCredentials(sslCreds, macaroonCreds);
-    var lightning = new lnrpc.Lightning('localhost:10009', creds);
+    var lightning = new lnrpc.Lightning(lndAddress, creds);
     /*var request = {} 
     lightning.getInfo(request, function(err, response) {
         console.log(err)

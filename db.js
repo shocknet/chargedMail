@@ -65,12 +65,32 @@ module.exports.addMail = function(gmail,lightning,db,to,from,subject,messageId,t
                                         }
                                         var payment_request= res.payment_request
                                         var fallback_addr = res.fallback_addr
-                                        var data =optionD.message+ " \n "+
+                                        var mailBody = `
+                                            <html>
+                                                <h2>
+                                                    ${optionD.message}
+                                                </h2>
+                                                <h3>
+                                                    Cost: ${optionD.cost}
+                                                </h3>
+                                                <div>
+                                                    <h4>Lightning</h4>
+                                                    <p>${payment_request}</p>
+                                                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${payment_request}" title="Logo" style="display:block" alt="img here" width="150px" height="150px"></img>
+                                                </div>
+                                                <hr>
+                                                <div style={border: 1px solid black;}>
+                                                    <h4>On Chain</h4>
+                                                    <p>${fallback_addr}</p>
+                                                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${fallback_addr}" title="Logo" style="display:block" alt="img here" width="150px" height="150px"></img>
+                                                </div>
+                                            </html>`
+                                        /*var data =optionD.message+ " \n "+
                                         "cost: "+optionD.cost+"\n\n"+
                                         "via LN:"+res.payment_request+
-                                        "\n on-Chain:"+res.fallback_addr+"\n\n"
+                                        "\n on-Chain:"+res.fallback_addr+"\n\n"*/
                                         var localGmail = require("./gmail.js")
-                                        localGmail.sendEmail(gmail,to,from,messageId,threadId,subject,data)
+                                        localGmail.sendEmail(gmail,to,from,messageId,threadId,subject,mailBody)
                                     })
                             
                         })

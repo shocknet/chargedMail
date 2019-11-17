@@ -8,25 +8,33 @@
     <title>Document</title>
 </head>
 <body>
-    helo
-    <main class="d-none" id="main">
+    <header class ="text-center">
+        <img src="chargedMail.png" />
+    </header>
+    <main class="d-none text-center" id="main">
+        
         <h2 id="mainContent"></h2>
-        <button id="stop" class="d-none">STOP service</button>
+        <button id="stop" class="d-none btn btn-danger">STOP service</button>
         <div id="start" class="d-none">
-            <textarea name="message" id="message" cols="30" rows="10" placeholder="message to send via email"></textarea>
-            <label for="cost">Amount satoshis</label>
-            <input type="number" id="cost" >
-            <button id="startBtn">START service</button>
+            <textarea name="message" id="message" cols="30" rows="4" placeholder="message to send via email" class="w-25"></textarea><br/>
+            <label for="cost">Amount satoshis:</label><br/>
+            <input type="number" id="cost" ><br/><br/>
+            <button id="startBtn" class="btn btn-success">START service</button>
         </div>
     </main>
-    <section id="init" class="d-none">
-        <p>Get the token and put in the texbox</p>
-        <a href="#" target="_blank" id="toGoogle">Get token</a>
+    <section id="init" class="d-none text-center">
+        <h1>Get the token and put in the texbox</h1>
+        <a href="#" target="_blank" id="toGoogle" class="btn btn-primary">Get token</a>
+        <br/>
+        <br/>
         <br/>
         <br/>
         <input type="text" placeholder="identification code" id="idCode"/>
-        <button id="sendCodeBtn">send code</button>
+        <button id="sendCodeBtn" class="btn btn-success">send code</button>
     </section>
+    <footer style="position: fixed; bottom:1rem;left:1rem;">
+        <a href="https://github.com/shocknet/chargedMail"><img src="GitHub-Mark-120px-plus.png" alt="github url" width="50rem" height="50rem"></a>
+    </footer>
     <script>
         fetch('http://localhost:8254/check')
         .then(response=>{
@@ -104,10 +112,13 @@
                         response.json()
                         .then(res=>{
                             console.log(res)
+                            //window.location.reload(false); 
                         })
                     })
                 })
                 document.querySelector('#stop').classList.toggle("d-none")
+                document.querySelector('#mainContent').classList.remove("text-danger")
+                document.querySelector('#mainContent').classList.add("text-success")
             }
             if(res.status.status == "NOT running"){
                 document.querySelector('#startBtn').addEventListener("click",e=>{
@@ -135,10 +146,13 @@
                         response.json()
                         .then(res=>{
                             console.log(res)
+                            window.location.reload(false); 
                         })
                     })
                 })
                 document.querySelector('#start').classList.toggle("d-none")
+                document.querySelector('#mainContent').classList.remove("text-success")
+                document.querySelector('#mainContent').classList.add("text-danger")
             }
         }
     </script>

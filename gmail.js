@@ -173,7 +173,7 @@ module.exports.SetAsPaid = function (gmail,messageId,optionD, callback) {
 		'userId': "me",
 		'id': messageId,
 		requestBody:{
-			'addLabelIds': ["INBOX",optionD.paidID,,"STARRED"],
+			'addLabelIds': ["INBOX",optionD.paidID,"STARRED"],
 			'removeLabelIds': [optionD.unpaidID]
 	  }
 	}).then(res=>{callback(res)});

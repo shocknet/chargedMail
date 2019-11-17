@@ -173,8 +173,15 @@ module.exports.SetAsPaid = function (gmail,messageId,optionD, callback) {
 		'userId': "me",
 		'id': messageId,
 		requestBody:{
-			'addLabelIds': [optionD.paidID],
+			'addLabelIds': ["INBOX",optionD.paidID,,"STARRED"],
 			'removeLabelIds': [optionD.unpaidID]
 	  }
 	}).then(res=>{callback(res)});
+	/*var request = gmail.users.messages.modify({
+		'userId': 'me',
+		'id': messageId,
+		'addLabelIds': [optionD.paidID,'INBOX','STARRED'],
+		'removeLabelIds': [optionD.unpaidID]
+	  });
+	  request.execute(callback);*/
   }

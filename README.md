@@ -1,11 +1,10 @@
-![chargedMail Logo](https://raw.githubusercontent.com/shocknet/chargedMail/master/chargedMail.png)
+![chargedMail Logo](https://github.com/shocknet/chargedMail/raw/master/public/chargedMail.png)
 
 # ChargedMail
 ### Requirements:
 - Google Cloud Project 
 - Gmail API Key
 - Google Cloud PubSub API key
-- Set LND host in lnd.js line 15
 - Node 12
 
 ### Required  Files
@@ -24,4 +23,4 @@
 For emails you wish to receive the paywall challenge, create a filter to add the `Unpaid` label to them, and archive them away from your inbox. Also, create the label `Paid`, which will be applied once the paywall is satisfied, as well as `Inbox`, `Unread` and `Starred`.
 
 ### Run
-`npm start`, then connect to the web panel at http://localhost:8254/ to define your outgoing message, cost and initialize the service.
+`npm start`, then connect to the web panel at http://localhost:8254/ to define your outgoing message, cost, and initialize the service.

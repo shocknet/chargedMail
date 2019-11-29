@@ -1,3 +1,5 @@
+This project was created for and [placed in the Strike Lightning Hackathon](https://medium.com/radartech/announcing-strike-hackathon-winners-5a4895708746), see the [devpost submission](https://devpost.com/software/charged-mail).
+
 ![chargedMail Logo](https://github.com/shocknet/chargedMail/raw/master/public/chargedMail.png)
 
 # ChargedMail

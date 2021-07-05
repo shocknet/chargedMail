@@ -15,7 +15,7 @@
     "googleapis": "^39.2.0",
     "grpc": "^1.24.2",
     "js-base64": "^2.5.1",
-    "nodemailer": "^6.3.1",
+    "nodemailer": "^6.4.16",
     "sqlite3": "^4.1.0"
   }
 }

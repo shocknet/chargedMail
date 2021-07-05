@@ -19,6 +19,10 @@
             <textarea name="message" id="message" cols="30" rows="4" placeholder="message to send via email" class="w-25"></textarea><br/>
             <label for="cost">Amount satoshis:</label><br/>
             <input type="number" id="cost" ><br/><br/>
+            <label for="lnbits-url">LNBITS Url:</label><br/>
+            <input type="text" id="lnbits-url" value="https://lnbits.com"><br/><br/>
+            <label for="lnbits-key">LNBITS API Key:</label><br/>
+            <input type="text" id="lnbits-key" ><br/><br/>
             <button id="startBtn" class="btn btn-success">START service</button>
         </div>
     </main>
@@ -124,9 +128,13 @@
                 document.querySelector('#startBtn').addEventListener("click",e=>{
                     var mex = document.querySelector('#message').value
                     var cost = document.querySelector('#cost').value
+                    var lnbitsUrl = document.querySelector('#lnbits-url').value
+                    var lnbitsKey = document.querySelector('#lnbits-key').value
                     var data = {
                         cost:cost,
-                        message:mex
+                        message:mex,
+                        lnbitsUrl,
+                        lnbitsKey
                     }
                     var params= {
                         method: 'POST', // *GET, POST, PUT, DELETE, etc.

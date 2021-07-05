@@ -7,7 +7,9 @@ module.exports.getStatus=function(){
 var optionD_G = {}
 module.exports.startD=function(gmail,optionD = {
 	cost:1000,
-	message:"please play this message to deliver the message"
+	message:"please play this message to deliver the message",
+	lnbitsKey = "",
+	lnbitsUrl = ""
 }){
 	var optionD_G = optionD
 	status.status = "starting"

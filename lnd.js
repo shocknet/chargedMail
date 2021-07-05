@@ -1,6 +1,7 @@
+const fetch = require('node-fetch')
 module.exports.init=function(lndAddress){
     var fs = require('fs');
-    var grpc = require('grpc');
+    var grpc = require('@grpc/grpc-js');
     var lnrpc = grpc.load('private/rpc.proto').lnrpc;
     process.env.GRPC_SSL_CIPHER_SUITES = 'HIGH+ECDSA'
     var lndCert = fs.readFileSync('private/tls.cert');
@@ -21,7 +22,23 @@ module.exports.init=function(lndAddress){
     return lightning
 }
 
-module.exports.addInvoice=function(lightning,memo,value,callback){
+module.exports.addInvoice=function(lightning,optionD,callback){
+    const {cost:value, message:memo,lnbitsKey,lnbitsUrl } = optionD
+    if (lnbitsKey) {
+        fetch(`${lnbitsUrl}/api/v1/payments`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            'X-Api-Key':lnbitsKey
+            },
+            body: JSON.stringify({out: false, amount: 420, memo: "mem"}) // body data type must match "Content-Type" header
+        }).then(res => {
+            return res.json()
+        }).then(res => {
+            callback(res)
+        })
+        return 
+    }
 
     var request = { 
         type: 0, 
@@ -57,6 +74,18 @@ module.exports.addInvoice=function(lightning,memo,value,callback){
 
 module.exports.listenInvoice= function(gmail,lightning,db,optionD){
     var localDB = require("./db.js")
+    const {lnbitsKey,lnbitsUrl } = optionD
+    if (lnbitsKey) {
+        const es = new EventSource(`${lnbitsUrl}/api/v1/payments/sse?api-key=${lnbitsKey}`)
+        es.addEventListener("payment-received", function(e) {
+            const {data} = e
+            localDB.handlePayment(gmail,db,data.bolt11,"",data.preimage,"",data.amount/1000,optionD)
+        })
+        es.addEventListener("error", function(e) {
+        console.log(e)
+        })
+        return 
+    }
     var request = { 
 		settle_index: 1, 
 	} 
@@ -80,6 +109,10 @@ module.exports.listenInvoice= function(gmail,lightning,db,optionD){
 }
 module.exports.listenTransaction = function(gmail,lightning,db,optionD){
     var localDB = require("./db.js")
+    const {lnbitsKey } = optionD
+    if (lnbitsKey) {
+        return 
+    }
 
     var request = {} 
     var call = lightning.subscribeTransactions(request)

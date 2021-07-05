@@ -52,7 +52,7 @@ module.exports.addMail = function(gmail,lightning,db,to,from,subject,messageId,t
                             return
                         }
                         var localLND = require("./lnd.js")
-                        localLND.addInvoice(lightning,"pay to unlock email",1000,res=>{
+                        localLND.addInvoice(lightning,optionD,res=>{
                             let data = ['Ansi C', 'C'];
                             let sql = `UPDATE langs
                                         SET name = ?

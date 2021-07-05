@@ -1,5 +1,6 @@
 const fetch = require('node-fetch')
-module.exports.init=function(lndAddress){
+module.exports.init=function(lndAddress,lnbitsKey){
+    if(lnbitsKey){return}
     var fs = require('fs');
     var grpc = require('@grpc/grpc-js');
     var lnrpc = grpc.load('private/rpc.proto').lnrpc;

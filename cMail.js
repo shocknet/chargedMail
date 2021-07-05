@@ -19,7 +19,7 @@ module.exports.startD=function(gmail,optionD = {
 	var projectInfo = JSON.parse(projectInfoRAW)
 	console.log(projectInfo)
 	var localLND = require("./lnd.js")
-	var lightning = localLND.init(projectInfo.lndAddress)
+	var lightning = localLND.init(projectInfo.lndAddress, lnbitsKey)
 	var localDB = require("./db.js")
 	this.watchGmail(gmail,projectInfo.topicName)
 	localDB.initDB(db =>{

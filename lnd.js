@@ -32,7 +32,7 @@ module.exports.addInvoice=function(lightning,optionD,callback){
             'Content-Type': 'application/json',
             'X-Api-Key':lnbitsKey
             },
-            body: JSON.stringify({out: false, amount: 420, memo: "mem"}) // body data type must match "Content-Type" header
+            body: JSON.stringify({out: false, amount: value, memo}) // body data type must match "Content-Type" header
         }).then(res => {
             return res.json()
         }).then(res => {

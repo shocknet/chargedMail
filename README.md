@@ -8,8 +8,11 @@ This project was created for and [placed in the Strike Lightning Hackathon](http
 - Gmail API Key
 - Google Cloud PubSub API key
 - Node 12
+- LND or LNBits
 
-### Required  Files
+LNBits Key can be provided via the interface
+
+### Required  Files (LND)
 - `private/creds.json`: Authentication File for GMail API
 - `private/credsPubSub.json`: Authentication File for GC PubSub
 - `private/projectInfo.json`: PubSub Namings
